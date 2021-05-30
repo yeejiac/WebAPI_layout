@@ -1,0 +1,9 @@
+language: go
+
+go:
+- 1.15.x
+- master
+
+script:
+  - go build main.go
+  - ./main
