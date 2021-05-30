@@ -18,7 +18,7 @@ func handleRequests() {
 }
 
 func main() {
-	// var logger = logging.NewLogger()
+	log.Println("Start web api")
 	fmt.Println(internal.Test2)
     handleRequests()
 }
