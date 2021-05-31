@@ -20,5 +20,6 @@ func handleRequests() {
 func main() {
 	log.Println("Start web api")
 	fmt.Println(internal.Test2)
+    internal.SendMail();
     handleRequests()
 }
