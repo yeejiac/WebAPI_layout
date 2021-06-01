@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+    redis:
+        restart: always
+        container_name: redis
+        image: redis:alpine
+        ports:
+        - 6379:6379
+        volumes:
+        - /data/redis-data:/data
+    webAPI:
+        build:
+            context: .
+        container_name: mysql-slave
+        environment:
+            - TZ=Asia/Taipei
+        restart: always
+        
+networks:
+    vpcbr:
+        driver: bridge
+        ipam:
+        config:
+            - subnet: 172.28.0.0/16
