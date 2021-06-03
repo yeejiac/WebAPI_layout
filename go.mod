@@ -4,7 +4,7 @@ go 1.15
 
 require (
 	github.com/gomodule/redigo v1.8.4
-	github.com/gorilla/mux v1.8.0 // indirect
+	github.com/gorilla/mux v1.8.0
 	gopkg.in/ini.v1 v1.62.0
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 )
