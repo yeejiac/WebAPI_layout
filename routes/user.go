@@ -1,28 +1,33 @@
 package routes
 
 import (
-    "encoding/json"
-	"net/http"
-	"log"
-	"github.com/yeejiac/WebAPI_layout/models"
-	// "github.com/yeejiac/WebAPI_layout/internal"
+	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
 	"os"
+
 	"github.com/gomodule/redigo/redis"
+	"github.com/yeejiac/WebAPI_layout/models"
 )
+
+var conn redis.Conn
 
 func RedisConnection() redis.Conn {
 	const IPPort = "127.0.0.1:6379"
-
+	err := *new(error)
 	rc, err := redis.Dial("tcp", IPPort)
 	if err != nil {
+		fmt.Println("db conn error")
 		panic(err)
 	}
+	conn = rc
+	fmt.Println("db conn success")
 	return rc
 }
 
 func RedisSet(key string, value string, rc redis.Conn) {
-	rc.Do("SET", key, value)
+	conn.Do("SET", key, value)
 }
 
 func RedisSetList(key string, value []string, rc redis.Conn) {
@@ -50,12 +55,7 @@ func RedisGetList(key string, rc redis.Conn) []string {
 	return s
 }
 
-func FindAll() {
-	log.Println("FindAll not implemented !")
-}
-
-// Find a movie by its id
-func FindById(w http.ResponseWriter, r *http.Request) {
+func HomePage(w http.ResponseWriter, r *http.Request) {
 	u := &models.UserInfo{
 		Name: "syhlion",
 		Age:  18,
@@ -63,8 +63,31 @@ func FindById(w http.ResponseWriter, r *http.Request) {
 	b, err := json.Marshal(u)
 	if err != nil {
 		log.Println(err)
-		return 
+		return
 	}
+	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	w.Write(b)
+}
+
+func FindAll() {
+	log.Println("FindAll not implemented !")
+}
+
+// Find a movie by its id
+func FindById(w http.ResponseWriter, r *http.Request) {
+	u := &models.UserInfo{
+		Name: "yeejiac",
+		Age:  18,
+	}
+	b, err := json.Marshal(u)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	key := "TEST"
+	value := string(b)
+	RedisSet(key, value, conn)
 	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 	w.Write(b)
