@@ -17,9 +17,9 @@ func main() {
 	// log.Println("Start web api")
 	// fmt.Println(internal.Test2)
 	// internal.SendMail();
-	r.HandleFunc("/api/register", routes.HomePage).Methods("GET")
-	r.HandleFunc("/api/register/{id}", routes.FindById).Methods("GET")
-	r.HandleFunc("/api/register", routes.HomePage).Methods("POST")
+	r.HandleFunc("/api/register", routes.Register_FindById).Methods("GET")
+	r.HandleFunc("/api/register/{id}", routes.Register_FindByName).Methods("GET")
+	r.HandleFunc("/api/register", routes.Register_Post).Methods("POST")
 	r.HandleFunc("/api/register", routes.HomePage).Methods("PUT")
 	r.HandleFunc("/api/register", routes.HomePage).Methods("DELETE")
 	if err := http.ListenAndServe(":8080", r); err != nil {

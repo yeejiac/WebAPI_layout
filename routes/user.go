@@ -3,6 +3,7 @@ package routes
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -42,6 +43,7 @@ func RedisGet(key string, rc redis.Conn) string {
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
+		return ""
 	}
 	return s
 }
@@ -75,22 +77,47 @@ func FindAll() {
 }
 
 // Find a movie by its id
-func FindById(w http.ResponseWriter, r *http.Request) {
-	u := &models.UserInfo{
-		Name: "yeejiac",
-		Age:  18,
+func Register_FindByName(w http.ResponseWriter, r *http.Request) {
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err)
 	}
-	b, err := json.Marshal(u)
+	log.Println(string(body))
+	var t models.UserInfo
+	var status models.Status
+	err = json.Unmarshal(body, &t)
+	if err != nil {
+		panic(err)
+	}
+	res := RedisGet(t.Name, conn)
+	if res != "" {
+		status.Status = "success"
+	}
+	u, err := json.Marshal(t)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	key := "TEST"
-	value := string(b)
-	RedisSet(key, value, conn)
+
 	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	w.Write(b)
+	w.Write(u)
+}
+
+func Register_Post(w http.ResponseWriter, r *http.Request) {
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err)
+	}
+	log.Println(string(body))
+	var t models.UserInfo
+	err = json.Unmarshal(body, &t)
+	if err != nil {
+		panic(err)
+	}
+	key := t.Name
+	value := string(body)
+	RedisSet(key, value, conn)
 }
 
 // // Insert a movie into database
