@@ -1,8 +1,6 @@
 package main
 
 import (
-	// "fmt"
-
 	"log"
 	"net/http"
 
@@ -14,9 +12,6 @@ func main() {
 	rc := routes.RedisConnection()
 	defer rc.Close()
 	r := mux.NewRouter()
-	// log.Println("Start web api")
-	// fmt.Println(internal.Test2)
-	// internal.SendMail();
 	r.HandleFunc("/api/register", routes.Register_Get).Methods("GET")
 	r.HandleFunc("/api/register", routes.Register_Post).Methods("POST")
 	r.HandleFunc("/api/register", routes.Register_Update).Methods("PUT")
