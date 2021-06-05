@@ -8,6 +8,10 @@ services:
             - 6379:6379
         volumes:
             - /data/redis-data:/data
+        networks:
+            vpcbr:
+                ipv4_address: 172.28.0.2
+        
     webapi:
         build:
             context: .
@@ -21,4 +25,14 @@ services:
             /bin/bash -c "
             sleep 10;
             ./build/main;"
+        networks:
+            vpcbr:
+                ipv4_address: 172.28.0.3
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
     

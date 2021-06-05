@@ -15,7 +15,7 @@ import (
 var conn redis.Conn
 
 func RedisConnection() redis.Conn {
-	const IPPort = "127.0.0.1:6379"
+	const IPPort = "172.28.0.2:6379"
 	err := *new(error)
 	rc, err := redis.Dial("tcp", IPPort)
 	if err != nil {
