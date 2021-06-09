@@ -34,22 +34,22 @@ func HandleConnection(conn net.Conn) {
 	conn.Close()
 }
 
-func StartServer ()
-{
-	src := addr + ":" + strconv.Itoa(port)
-	listener, err := net.Listen("tcp", src)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	defer listener.Close()
-	fmt.Printf("TCP server start and listening on %s.\n", src)
+// func StartServer ()
+// {
+// 	src := addr + ":" + strconv.Itoa(port)
+// 	listener, err := net.Listen("tcp", src)
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 	}
+// 	defer listener.Close()
+// 	fmt.Printf("TCP server start and listening on %s.\n", src)
 
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			fmt.Printf("Some connection error: %s\n", err)
-		}
+// 	for {
+// 		conn, err := listener.Accept()
+// 		if err != nil {
+// 			fmt.Printf("Some connection error: %s\n", err)
+// 		}
 
-		go HandleConnection(conn)
-	}
-}
+// 		go HandleConnection(conn)
+// 	}
+// }

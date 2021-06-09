@@ -11,6 +11,7 @@ import (
 func main() {
 	rc := routes.RedisConnection()
 	defer rc.Close()
+
 	r := mux.NewRouter()
 	r.HandleFunc("/login", routes.LoginHandle).Methods("GET")
 	r.HandleFunc("/api/register", routes.Register_Get).Methods("GET")
