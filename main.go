@@ -13,7 +13,9 @@ func main() {
 	defer rc.Close()
 
 	r := mux.NewRouter()
+	r.HandleFunc("/index", routes.ShowIndexPage).Methods("GET")
 	r.HandleFunc("/login", routes.LoginHandle).Methods("GET")
+	r.HandleFunc("/login", routes.LoginHandle).Methods("POST")
 	r.HandleFunc("/api/register", routes.Register_Get).Methods("GET")
 	r.HandleFunc("/api/register", routes.Register_Post).Methods("POST")
 	r.HandleFunc("/api/register", routes.Register_Update).Methods("PUT")
