@@ -7,6 +7,20 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
+func RedisConnection() redis.Conn {
+	// const IPPort = "172.28.0.2:6379"
+	const IPPort = "127.0.0.1:6379"
+	err := *new(error)
+	rc, err := redis.Dial("tcp", IPPort)
+	if err != nil {
+		fmt.Println("db conn error")
+		panic(err)
+	}
+	// conn = rc
+	fmt.Println("db conn success")
+	return rc
+}
+
 func RedisSet(key string, value string, rc redis.Conn) {
 	rc.Do("SET", key, value)
 }

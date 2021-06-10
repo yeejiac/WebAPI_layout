@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/yeejiac/WebAPI_layout/internal"
 )
 
 func LoginHandle(w http.ResponseWriter, r *http.Request) {
@@ -18,10 +19,10 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 		t, _ := template.ParseFiles("./views/login.gtpl")
 		log.Println(t.Execute(w, nil))
 	} else {
-		//請求的是登入資料，那麼執行登入的邏輯判斷
-
-		// var login models.Login
 		usr := strings.Join(r.Form["Username"], " ")
+		if internal.RedisCheckKey(usr, conn) {
+			log.Println("user exist")
+		}
 		if usr == "123" {
 			sessionToken := uuid.New().String()
 			http.SetCookie(w, &http.Cookie{
