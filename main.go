@@ -5,13 +5,19 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/yeejiac/WebAPI_layout/internal"
 	"github.com/yeejiac/WebAPI_layout/routes"
 )
 
 func main() {
-	rc := routes.RedisConnection()
+	rc := internal.RedisConnection()
 	defer rc.Close()
+	routes.SetConnectionObject(rc)
+
 	r := mux.NewRouter()
+	r.HandleFunc("/index", routes.ShowIndexPage).Methods("GET")
+	r.HandleFunc("/login", routes.LoginHandle).Methods("GET")
+	r.HandleFunc("/login", routes.LoginHandle).Methods("POST")
 	r.HandleFunc("/api/register", routes.Register_Get).Methods("GET")
 	r.HandleFunc("/api/register", routes.Register_Post).Methods("POST")
 	r.HandleFunc("/api/register", routes.Register_Update).Methods("PUT")

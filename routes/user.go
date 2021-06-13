@@ -2,73 +2,34 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gomodule/redigo/redis"
+	"github.com/yeejiac/WebAPI_layout/internal"
 	"github.com/yeejiac/WebAPI_layout/models"
 )
 
 var conn redis.Conn
 
-func RedisConnection() redis.Conn {
-	const IPPort = "172.28.0.2:6379"
-	err := *new(error)
-	rc, err := redis.Dial("tcp", IPPort)
-	if err != nil {
-		fmt.Println("db conn error")
-		panic(err)
-	}
+func SetConnectionObject(rc redis.Conn) {
 	conn = rc
-	fmt.Println("db conn success")
-	return rc
 }
 
-func RedisSet(key string, value string, rc redis.Conn) {
-	conn.Do("SET", key, value)
-}
-
-func RedisCheckKey(key string, rc redis.Conn) bool {
-	res, err := redis.Bool(conn.Do("EXISTS", key))
-	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-	return res
-}
-
-// func RedisSetList(key string, value []string, rc redis.Conn) {
-// 	for _, v := range value {
-// 		fmt.Println(v)
-// 		rc.Do("RPUSH", key, v)
-// 	}
-// }
-
-func RedisGet(key string, rc redis.Conn) string {
-	s, err := redis.String(rc.Do("GET", key))
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-		return ""
-	}
-	return s
-}
-
-// func RedisGetList(key string, rc redis.Conn) []string {
-// 	s, err := redis.Strings(rc.Do("LRANGE", key, 0, -1))
+// func RedisConnection() redis.Conn {
+// 	// const IPPort = "172.28.0.2:6379"
+// 	const IPPort = "127.0.0.1:6379"
+// 	err := *new(error)
+// 	rc, err := redis.Dial("tcp", IPPort)
 // 	if err != nil {
-// 		fmt.Println(err)
-// 		os.Exit(1)
+// 		fmt.Println("db conn error")
+// 		panic(err)
 // 	}
-// 	return s
+// 	conn = rc
+// 	fmt.Println("db conn success")
+// 	return rc
 // }
-
-func RedisDelete(key string, rc redis.Conn) {
-	conn.Do("DEL", key)
-}
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
 	u := &models.UserInfo{
@@ -103,7 +64,7 @@ func Register_Get(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	res := RedisGet(t.Name, conn)
+	res := internal.RedisGet(t.Name, conn)
 	u, err := json.Marshal(res)
 	if err != nil {
 		log.Println(err)
@@ -128,7 +89,7 @@ func Register_Post(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	if RedisCheckKey(t.Name, conn) {
+	if internal.RedisCheckKey(t.Name, conn) {
 		var status models.Status
 		status.Status = "Already Exist"
 		b, err := json.Marshal(status)
@@ -143,7 +104,7 @@ func Register_Post(w http.ResponseWriter, r *http.Request) {
 	} else {
 		key := t.Name
 		value := string(body)
-		RedisSet(key, value, conn)
+		internal.RedisSet(key, value, conn)
 	}
 }
 
@@ -159,7 +120,7 @@ func Register_Delete(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	key := t.Name
-	RedisDelete(key, conn)
+	internal.RedisDelete(key, conn)
 }
 
 func Register_Update(w http.ResponseWriter, r *http.Request) {
@@ -174,10 +135,10 @@ func Register_Update(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	if RedisCheckKey(t.Name, conn) {
+	if internal.RedisCheckKey(t.Name, conn) {
 		key := t.Name
 		value := string(body)
-		RedisSet(key, value, conn)
+		internal.RedisSet(key, value, conn)
 	} else {
 		return
 	}
