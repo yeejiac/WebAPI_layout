@@ -6,9 +6,6 @@ import (
 	"net/http"
 	"strings"
 	"text/template"
-	"time"
-
-	"github.com/google/uuid"
 )
 
 func LoginHandle(w http.ResponseWriter, r *http.Request) {
@@ -20,17 +17,12 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 	} else {
 		usr := strings.Join(r.Form["Username"], " ")
 		if usr == "123" { // login request pass
-			sessionToken := uuid.New().String()
-			http.SetCookie(w, &http.Cookie{
-				Name:    "session_token",
-				Value:   sessionToken,
-				Expires: time.Now().Add(600 * time.Second),
-			})
 			session, err := store.Get(r, "session_token")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
+			session.Options.MaxAge = 600
 			session.Values["auth"] = true
 			err = session.Save(r, w)
 			if err != nil {
@@ -43,4 +35,8 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+}
+
+func LoginVerification(username string, password string) bool {
+	return true
 }
