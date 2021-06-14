@@ -25,6 +25,10 @@ func RedisSet(key string, value string, rc redis.Conn) {
 	rc.Do("SET", key, value)
 }
 
+func RedisSetTimeout(key string, value string, timeout int, rc redis.Conn) {
+	rc.Do("SETEX", key, timeout, value)
+}
+
 func RedisCheckKey(key string, rc redis.Conn) bool {
 	res, err := redis.Bool(rc.Do("EXISTS", key))
 	if err != nil {

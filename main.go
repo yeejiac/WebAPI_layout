@@ -15,7 +15,7 @@ func main() {
 	routes.SetConnectionObject(rc)
 
 	r := mux.NewRouter()
-	r.HandleFunc("/index", routes.ShowIndexPage).Methods("GET")
+	r.HandleFunc("/index", routes.Home).Methods("GET")
 	r.HandleFunc("/login", routes.LoginHandle).Methods("GET")
 	r.HandleFunc("/login", routes.LoginHandle).Methods("POST")
 	r.HandleFunc("/api/register", routes.Register_Get).Methods("GET")

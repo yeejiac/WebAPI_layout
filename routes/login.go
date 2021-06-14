@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/yeejiac/WebAPI_layout/internal"
 )
 
 func LoginHandle(w http.ResponseWriter, r *http.Request) {
@@ -20,18 +19,27 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 		log.Println(t.Execute(w, nil))
 	} else {
 		usr := strings.Join(r.Form["Username"], " ")
-		if internal.RedisCheckKey(usr, conn) {
-			log.Println("user exist")
-		}
-		if usr == "123" {
+		if usr == "123" { // login request pass
 			sessionToken := uuid.New().String()
 			http.SetCookie(w, &http.Cookie{
 				Name:    "session_token",
 				Value:   sessionToken,
-				Expires: time.Now().Add(120 * time.Second),
+				Expires: time.Now().Add(600 * time.Second),
 			})
+			session, err := store.Get(r, "session_token")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			session.Values["auth"] = true
+			err = session.Save(r, w)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			http.Redirect(w, r, "/index", http.StatusSeeOther)
 		} else {
-			w.WriteHeader(http.StatusUnauthorized)
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
 	}
