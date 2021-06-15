@@ -1,11 +1,15 @@
 package routes
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"strings"
 	"text/template"
+
+	"github.com/yeejiac/WebAPI_layout/internal"
+	"github.com/yeejiac/WebAPI_layout/models"
 )
 
 func LoginHandle(w http.ResponseWriter, r *http.Request) {
@@ -16,7 +20,10 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 		log.Println(t.Execute(w, nil))
 	} else {
 		usr := strings.Join(r.Form["Username"], " ")
-		if usr == "123" { // login request pass
+		password := strings.Join(r.Form["Password"], " ")
+		log.Println(usr)
+		log.Println(password)
+		if LoginVerification(usr, password) { // login request pass
 			session, err := store.Get(r, "session_token")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -38,5 +45,17 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoginVerification(username string, password string) bool {
-	return true
+	res := internal.RedisGet(username, conn)
+	data := []byte(res)
+	var t models.UserInfo
+	err := json.Unmarshal(data, &t)
+	if err != nil {
+		panic(err)
+	}
+
+	if t.Password == password {
+		return true
+	}
+	log.Println(t.Name + " Login failed")
+	return false
 }
