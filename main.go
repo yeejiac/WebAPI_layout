@@ -18,10 +18,11 @@ func main() {
 	r.HandleFunc("/index", routes.Home).Methods("GET")
 	r.HandleFunc("/login", routes.LoginHandle).Methods("GET")
 	r.HandleFunc("/login", routes.LoginHandle).Methods("POST")
-	r.HandleFunc("/api/register", routes.Register_Get).Methods("GET")
-	r.HandleFunc("/api/register", routes.Register_Post).Methods("POST")
-	r.HandleFunc("/api/register", routes.Register_Update).Methods("PUT")
-	r.HandleFunc("/api/register", routes.Register_Delete).Methods("DELETE")
+	r.HandleFunc("/register", routes.ShowRegisterPage).Methods("GET")
+	r.HandleFunc("/api/user", routes.User_Get).Methods("GET")
+	r.HandleFunc("/api/user", routes.User_Post).Methods("POST")
+	r.HandleFunc("/api/user", routes.User_Update).Methods("PUT")
+	r.HandleFunc("/api/user", routes.User_Delete).Methods("DELETE")
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal(err)
 	}

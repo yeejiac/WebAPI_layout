@@ -8,6 +8,8 @@
     密碼:<input type="password" name="Password">
     <input type="submit" value="登入">
 </form>
-<input type="submit" value="註冊帳號">
+<form action="/register" method="get">
+    <input type="submit" value="regist account" />
+</form>
 </body>
 </html>

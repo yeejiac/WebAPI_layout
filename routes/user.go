@@ -51,7 +51,7 @@ func FindAll() {
 }
 
 // Find a movie by its id
-func Register_Get(w http.ResponseWriter, r *http.Request) {
+func User_Get(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
@@ -77,7 +77,7 @@ func Register_Get(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func Register_Post(w http.ResponseWriter, r *http.Request) {
+func User_Post(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
@@ -108,7 +108,7 @@ func Register_Post(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Register_Delete(w http.ResponseWriter, r *http.Request) {
+func User_Delete(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
@@ -123,7 +123,7 @@ func Register_Delete(w http.ResponseWriter, r *http.Request) {
 	internal.RedisDelete(key, conn)
 }
 
-func Register_Update(w http.ResponseWriter, r *http.Request) {
+func User_Update(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
