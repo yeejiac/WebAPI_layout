@@ -16,7 +16,6 @@ func SendMail() {
 	}
 	from := cfg.Section("gmail").Key("username").String()
 	password := cfg.Section("gmail").Key("password").String()
-
 	// Receiver email address.
 	to := []string{
 		"yeejiac@gmail.com",
@@ -27,7 +26,7 @@ func SendMail() {
 	smtpPort := cfg.Section("gmail").Key("port").String()
 
 	// Message.
-	message := []byte("This is a test email message.")
+	message := []byte("Account verification")
 
 	// Authentication.
 	auth := smtp.PlainAuth("", from, password, smtpHost)
@@ -35,7 +34,7 @@ func SendMail() {
 	// Sending email.
 	senderr := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
 	if senderr != nil {
-		fmt.Println(err)
+		fmt.Println(senderr)
 		return
 	}
 	fmt.Println("Email Sent Successfully!")

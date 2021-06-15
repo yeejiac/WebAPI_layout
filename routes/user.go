@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/mail"
 
 	"github.com/gomodule/redigo/redis"
 	"github.com/yeejiac/WebAPI_layout/internal"
@@ -89,9 +90,9 @@ func User_Post(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	if internal.RedisCheckKey(t.Name, conn) {
+	if !CheckUserDataApply(t) {
 		var status models.Status
-		status.Status = "Already Exist"
+		status.Status = "email wrong"
 		b, err := json.Marshal(status)
 		if err != nil {
 			log.Println(err)
@@ -101,10 +102,26 @@ func User_Post(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 		w.WriteHeader(http.StatusOK)
 		w.Write(b)
+		return
+	}
+
+	if internal.RedisCheckKey(t.Name, conn) {
+		var status models.Status
+		status.Status = "Already Exist"
+		b, err := json.Marshal(status)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+		w.Write(b)
 	} else {
+
 		key := t.Name
 		value := string(body)
 		internal.RedisSet(key, value, conn)
+		internal.SendMail()
 	}
 }
 
@@ -142,6 +159,11 @@ func User_Update(w http.ResponseWriter, r *http.Request) {
 	} else {
 		return
 	}
+}
+
+func CheckUserDataApply(userinfo models.UserInfo) bool {
+	_, err := mail.ParseAddress(userinfo.Email)
+	return err == nil
 }
 
 // // Insert a movie into database
