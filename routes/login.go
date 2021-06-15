@@ -46,6 +46,10 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 
 func LoginVerification(username string, password string) bool {
 	res := internal.RedisGet(username, conn)
+	if res == "" {
+		return false
+	}
+	log.Println(res)
 	data := []byte(res)
 	var t models.UserInfo
 	err := json.Unmarshal(data, &t)

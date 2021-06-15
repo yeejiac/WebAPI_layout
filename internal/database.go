@@ -2,7 +2,6 @@ package internal
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/gomodule/redigo/redis"
 )
@@ -49,7 +48,6 @@ func RedisGet(key string, rc redis.Conn) string {
 	s, err := redis.String(rc.Do("GET", key))
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
 		return ""
 	}
 	return s
