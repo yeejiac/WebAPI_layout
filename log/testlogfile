@@ -1,43 +1,12 @@
-2021/06/15 22:02:54 <nil>
-2021/06/15 22:02:59 HIHI
-2021/06/15 22:02:59 123
-2021/06/15 22:02:59 <nil>
-2021/06/15 22:03:09 Arisa
-2021/06/15 22:03:09 123
-2021/06/15 22:03:09 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123"}
-2021/06/15 22:03:09 <nil>
-2021/06/15 22:53:39 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123"}
-2021/06/15 22:56:25 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123"}
-2021/06/15 23:00:06 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":false}
-2021/06/15 23:01:25 { "Name": "111", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":}
-2021/06/15 23:01:25 http: panic serving 192.168.56.1:52463: invalid character '}' looking for beginning of value
-goroutine 7 [running]:
-net/http.(*conn).serve.func1(0xc00007de00)
-	/usr/lib/golang/src/net/http/server.go:1801 +0x147
-panic(0x7c4aa0, 0xc0002d6040)
-	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
-github.com/yeejiac/WebAPI_layout/routes.User_Post(0x8a8aa0, 0xc0000c0000, 0xc00037e200)
-	/home/Project/WebAPI_layout/routes/user.go:91 +0x84d
-net/http.HandlerFunc.ServeHTTP(0x848430, 0x8a8aa0, 0xc0000c0000, 0xc00037e200)
-	/usr/lib/golang/src/net/http/server.go:2042 +0x44
-github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a8aa0, 0xc0000c0000, 0xc00037e000)
-	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
-net/http.serverHandler.ServeHTTP(0xc0000c01c0, 0x8a8aa0, 0xc0000c0000, 0xc00037e000)
-	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
-net/http.(*conn).serve(0xc00007de00, 0x8a9760, 0xc0000578c0)
-	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
-created by net/http.(*Server).Serve
-	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
-2021/06/15 23:07:12 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":false}
-2021/06/15 23:42:11 User not exist
-2021/06/15 23:43:04 User not exist
-2021/06/15 23:43:28 
-2021/06/15 23:43:28 User not exist
-2021/06/16 01:47:19 
-2021/06/16 01:47:19 User not exist
-2021/06/16 01:48:16 Arisa
-2021/06/16 01:48:16 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":false}
-2021/06/16 01:48:41 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123"}
-2021/06/16 01:49:02 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":false}
-2021/06/16 01:49:25 Arisa
-2021/06/16 01:49:25 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":false}
+2021/06/16 02:46:17 <nil>
+2021/06/16 02:46:31 123
+2021/06/16 02:46:31 1234
+2021/06/16 02:46:32 <nil>
+2021/06/16 02:48:10 <nil>
+2021/06/16 02:48:20 123
+2021/06/16 02:48:20 1234
+2021/06/16 02:48:20 <nil>
+2021/06/16 02:49:18 Arisa
+2021/06/16 02:49:18 123
+2021/06/16 02:49:18 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":false}
+2021/06/16 02:49:18 <nil>

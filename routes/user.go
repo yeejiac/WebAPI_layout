@@ -18,35 +18,6 @@ func SetConnectionObject(rc redis.Conn) {
 	conn = rc
 }
 
-// func RedisConnection() redis.Conn {
-// 	// const IPPort = "172.28.0.2:6379"
-// 	const IPPort = "127.0.0.1:6379"
-// 	err := *new(error)
-// 	rc, err := redis.Dial("tcp", IPPort)
-// 	if err != nil {
-// 		fmt.Println("db conn error")
-// 		panic(err)
-// 	}
-// 	conn = rc
-// 	fmt.Println("db conn success")
-// 	return rc
-// }
-
-func HomePage(w http.ResponseWriter, r *http.Request) {
-	u := &models.UserInfo{
-		Name: "syhlion",
-		Age:  18,
-	}
-	b, err := json.Marshal(u)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	w.Write(b)
-}
-
 func FindAll() {
 	log.Println("FindAll not implemented !")
 }
