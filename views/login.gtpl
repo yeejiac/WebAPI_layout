@@ -29,5 +29,5 @@
 
         });
     });
-    </script>
+</script>
 </html>

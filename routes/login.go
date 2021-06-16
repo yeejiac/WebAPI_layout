@@ -13,12 +13,13 @@ import (
 )
 
 func LoginHandle(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("method:", r.Method) //取得請求的方法
+	fmt.Println("Login method:", r.Method) //取得請求的方法
 	r.ParseForm()
 	if r.Method == "GET" {
 		t, _ := template.ParseFiles("./views/login.gtpl")
 		log.Println(t.Execute(w, nil))
 	} else {
+		log.Println("login handle")
 		usr := strings.Join(r.Form["Username"], " ")
 		password := strings.Join(r.Form["Password"], " ")
 		log.Println(usr)
