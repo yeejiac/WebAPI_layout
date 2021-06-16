@@ -11,12 +11,13 @@ import (
 )
 
 func main() {
-	f, err := os.OpenFile("./log/testlogfile", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	f, err := os.OpenFile("./log/testlogfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("error opening file: %v", err)
 	}
 	defer f.Close()
 	log.SetOutput(f)
+
 	rc := internal.RedisConnection()
 	defer rc.Close()
 	routes.SetConnectionObject(rc)

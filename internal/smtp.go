@@ -3,22 +3,22 @@ package internal
 import (
 	"fmt"
 	"net/smtp"
-	"os"
 
+	"github.com/yeejiac/WebAPI_layout/models"
 	"gopkg.in/ini.v1"
 )
 
-func SendMail() {
+func SendRegisterMail(userinfo models.UserInfo) {
 	cfg, err := ini.Load("./config/setting.ini")
 	if err != nil {
 		fmt.Printf("Fail to read file: %v", err)
-		os.Exit(1)
+		return
 	}
 	from := cfg.Section("gmail").Key("username").String()
 	password := cfg.Section("gmail").Key("password").String()
 	// Receiver email address.
 	to := []string{
-		"yeejiac@gmail.com",
+		userinfo.Email,
 	}
 
 	// smtp server configuration.
@@ -26,7 +26,7 @@ func SendMail() {
 	smtpPort := cfg.Section("gmail").Key("port").String()
 
 	// Message.
-	message := []byte("Account verification")
+	message := []byte("Account verification\n" + "http://192.168.56.105:8080/validation?Name=" + userinfo.Name)
 
 	// Authentication.
 	auth := smtp.PlainAuth("", from, password, smtpHost)

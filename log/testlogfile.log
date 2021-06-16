@@ -1,0 +1,16 @@
+2021/06/16 06:25:17 listen tcp :8080: bind: address already in use
+2021/06/16 06:25:44 Start tcp server
+2021/06/16 06:25:44 listen tcp :8080: bind: address already in use
+2021/06/16 06:27:00 Start tcp server
+2021/06/16 06:27:00 listen tcp :8080: bind: address already in use
+2021/06/16 06:43:28 Start tcp server
+2021/06/16 06:43:28 listen tcp :8080: bind: address already in use
+2021/06/16 06:48:47 Try connect to socket server
+2021/06/16 06:48:47 Connect failed
+2021/06/16 06:49:16 Try connect to socket server
+2021/06/16 06:49:16 Connect failed
+2021/06/16 06:50:22 Try connect to socket server
+2021/06/16 06:50:22 Connect failed
+2021/06/16 06:51:26 Try connect to socket server
+2021/06/16 06:51:26 Connect failed
+2021/06/16 07:02:56 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":false}

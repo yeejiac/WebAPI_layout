@@ -92,7 +92,7 @@ func User_Post(w http.ResponseWriter, r *http.Request) {
 		key := t.Name
 		value := string(body)
 		internal.RedisSet(key, value, conn)
-		go internal.SendMail()
+		go internal.SendRegisterMail(t)
 	}
 }
 
