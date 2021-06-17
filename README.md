@@ -33,3 +33,7 @@ docker-compose up
 ```
 docker-compose down
 ```
+
+## Flowchart
+
+![Alt text](./flowchart.svg)
