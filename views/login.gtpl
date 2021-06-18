@@ -14,24 +14,5 @@
     <input type="submit" value="regist account" />
 </form>
 </body>
-<script>
-    $(document).ready(function(){
-        $("#submit-btn").click(function(e)
-        {
-            $.ajax({
-                url : "http://192.168.56.105:8080/login",
-                type: "POST",
-                data : { "Username": $('#name').val(), "Password": $('#password').val()},
-                success: function(data){
-                    console.log('AJAX SUCCESS, data : '+data); 
-                },
-                error: function(errMsg){ 
-                    console.log('AJAX FAILED, message : '+errMsg);
-                }
-            });
-            e.preventDefault();
-        });
-    });
-</script>
 </html>
 

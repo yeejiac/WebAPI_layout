@@ -2,6 +2,7 @@ package routes
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -52,13 +53,15 @@ func User_Get(w http.ResponseWriter, r *http.Request) {
 func User_Post(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
+		fmt.Println("parse body error")
 		panic(err)
 	}
-	log.Println(string(body))
+	fmt.Println(string(body))
 	var t models.UserInfo
 	err = json.Unmarshal(body, &t)
 	if err != nil {
-		panic(err)
+		fmt.Println("decode body error")
+		return
 	}
 
 	if !CheckUserDataApply(t) {

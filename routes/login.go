@@ -59,7 +59,7 @@ func LoginVerification(username string, password string) bool {
 	if res == "" {
 		return false
 	}
-	log.Println(res)
+	fmt.Println(res)
 	data := []byte(res)
 	var t models.UserInfo
 	err := json.Unmarshal(data, &t)
@@ -70,6 +70,6 @@ func LoginVerification(username string, password string) bool {
 	if t.Password == password {
 		return true
 	}
-	log.Println(t.Name + " Login failed")
+	fmt.Println(t.Name + " Login failed")
 	return false
 }
