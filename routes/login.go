@@ -19,11 +19,19 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 		t, _ := template.ParseFiles("./views/login.gtpl")
 		log.Println(t.Execute(w, nil))
 	} else {
-		log.Println("login handle")
+		fmt.Println("login handle")
+		// body, err := ioutil.ReadAll(r.Body)
+		// if err != nil {
+		// 	panic(err)
+		// }
+		// fmt.Println(string(body))
+		// var t models.UserInfo
+		// err = json.Unmarshal(body, &t)
+		// if err != nil {
+		// 	panic(err)
+		// }
 		usr := strings.Join(r.Form["Username"], " ")
 		password := strings.Join(r.Form["Password"], " ")
-		log.Println(usr)
-		log.Println(password)
 		if LoginVerification(usr, password) { // login request pass
 			session, err := store.Get(r, "session_token")
 			if err != nil {
@@ -39,6 +47,7 @@ func LoginHandle(w http.ResponseWriter, r *http.Request) {
 			}
 			http.Redirect(w, r, "/index", http.StatusSeeOther)
 		} else {
+			fmt.Println("Login failed")
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}

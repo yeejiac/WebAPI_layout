@@ -1,13 +1,14 @@
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <html>
 <head>
 <title></title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://raw.github.com/GRINPublishing/GTPL/master/lib/gtpl.js"></script>
 </head>
 <body>
-<form name="login" action="/login" method="post">
-    使用者名稱:<input type="text" name="Username">
-    密碼:<input type="password" name="Password">
-    <input type="submit" value="登入">
+<form name="login" method="post" action="/login">
+    使用者名稱:<input type="text" id="name" name="Username">
+    密碼:<input type="password" id="password" name="Password">
+    <input type="submit" id="submit-btn" name="submit" value="登入">
 </form>
 <form action="/register" method="get">
     <input type="submit" value="regist account" />
@@ -15,19 +16,22 @@
 </body>
 <script>
     $(document).ready(function(){
-        $('[name="login"]').click(function(e)
+        $("#submit-btn").click(function(e)
         {
-            var MyForm = JSON.stringify($('[name="Username"]').serializeJSON());
-            console.log(MyForm);
             $.ajax({
-                url : "http://localhost:8080/login",
+                url : "http://192.168.56.105:8080/login",
                 type: "POST",
-                data : MyForm,
-
+                data : { "Username": $('#name').val(), "Password": $('#password').val()},
+                success: function(data){
+                    console.log('AJAX SUCCESS, data : '+data); 
+                },
+                error: function(errMsg){ 
+                    console.log('AJAX FAILED, message : '+errMsg);
+                }
             });
-            e.preventDefault(); //STOP default action
-
+            e.preventDefault();
         });
     });
 </script>
 </html>
+

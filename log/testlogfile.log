@@ -1,16 +1,198 @@
-2021/06/16 06:25:17 listen tcp :8080: bind: address already in use
-2021/06/16 06:25:44 Start tcp server
-2021/06/16 06:25:44 listen tcp :8080: bind: address already in use
-2021/06/16 06:27:00 Start tcp server
-2021/06/16 06:27:00 listen tcp :8080: bind: address already in use
-2021/06/16 06:43:28 Start tcp server
-2021/06/16 06:43:28 listen tcp :8080: bind: address already in use
-2021/06/16 06:48:47 Try connect to socket server
-2021/06/16 06:48:47 Connect failed
-2021/06/16 06:49:16 Try connect to socket server
-2021/06/16 06:49:16 Connect failed
-2021/06/16 06:50:22 Try connect to socket server
-2021/06/16 06:50:22 Connect failed
-2021/06/16 06:51:26 Try connect to socket server
-2021/06/16 06:51:26 Connect failed
-2021/06/16 07:02:56 { "Name": "Arisa", "Age":  18, "Email": "yeejiac@gmail.com", "Password":"123", "Validation":false}
+2021/06/18 03:55:03 <nil>
+2021/06/18 03:55:08 http: panic serving 192.168.56.1:49682: invalid character 'U' looking for beginning of value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1(0xc0000e8000)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f080)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.LoginHandle(0x8a9c00, 0xc0000c2460, 0xc0000f0a00)
+	/home/Project/WebAPI_layout/routes/login.go:30 +0x729
+net/http.HandlerFunc.ServeHTTP(0x849418, 0x8a9c00, 0xc0000c2460, 0xc0000f0a00)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9c00, 0xc0000c2460, 0xc0000f0800)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9c00, 0xc0000c2460, 0xc0000f0800)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000e8000, 0x8aa8c0, 0xc000057980)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 03:55:08 http: panic serving 192.168.56.1:55409: invalid character 'U' looking for beginning of value
+goroutine 8 [running]:
+net/http.(*conn).serve.func1(0xc0000e80a0)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f0e0)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.LoginHandle(0x8a9c00, 0xc0000c2540, 0xc0000f0c00)
+	/home/Project/WebAPI_layout/routes/login.go:30 +0x729
+net/http.HandlerFunc.ServeHTTP(0x849418, 0x8a9c00, 0xc0000c2540, 0xc0000f0c00)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9c00, 0xc0000c2540, 0xc0000f0000)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9c00, 0xc0000c2540, 0xc0000f0000)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000e80a0, 0x8aa8c0, 0xc0000578c0)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 03:55:08 http: panic serving 192.168.56.1:53138: invalid character 'U' looking for beginning of value
+goroutine 14 [running]:
+net/http.(*conn).serve.func1(0xc0000e81e0)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f140)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.LoginHandle(0x8a9c00, 0xc0000c2620, 0xc0000f0f00)
+	/home/Project/WebAPI_layout/routes/login.go:30 +0x729
+net/http.HandlerFunc.ServeHTTP(0x849418, 0x8a9c00, 0xc0000c2620, 0xc0000f0f00)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9c00, 0xc0000c2620, 0xc0000f0d00)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9c00, 0xc0000c2620, 0xc0000f0d00)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000e81e0, 0x8aa8c0, 0xc000057e00)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 03:57:46 <nil>
+2021/06/18 03:57:51 http: panic serving 192.168.56.1:51125: invalid character 'U' looking for beginning of value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1(0xc00007df40)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f080)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.LoginHandle(0x8a9c00, 0xc0000c2460, 0xc0000f0a00)
+	/home/Project/WebAPI_layout/routes/login.go:30 +0x729
+net/http.HandlerFunc.ServeHTTP(0x849418, 0x8a9c00, 0xc0000c2460, 0xc0000f0a00)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9c00, 0xc0000c2460, 0xc0000f0800)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9c00, 0xc0000c2460, 0xc0000f0800)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc00007df40, 0x8aa8c0, 0xc000057980)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 03:57:51 http: panic serving 192.168.56.1:63011: invalid character 'U' looking for beginning of value
+goroutine 8 [running]:
+net/http.(*conn).serve.func1(0xc0000e8000)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f0e0)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.LoginHandle(0x8a9c00, 0xc0000c2540, 0xc0000f0c00)
+	/home/Project/WebAPI_layout/routes/login.go:30 +0x729
+net/http.HandlerFunc.ServeHTTP(0x849418, 0x8a9c00, 0xc0000c2540, 0xc0000f0c00)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9c00, 0xc0000c2540, 0xc0000f0000)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9c00, 0xc0000c2540, 0xc0000f0000)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000e8000, 0x8aa8c0, 0xc0000578c0)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 03:57:51 http: panic serving 192.168.56.1:62515: invalid character 'U' looking for beginning of value
+goroutine 15 [running]:
+net/http.(*conn).serve.func1(0xc0000e81e0)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f140)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.LoginHandle(0x8a9c00, 0xc0000c2620, 0xc0000f0f00)
+	/home/Project/WebAPI_layout/routes/login.go:30 +0x729
+net/http.HandlerFunc.ServeHTTP(0x849418, 0x8a9c00, 0xc0000c2620, 0xc0000f0f00)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9c00, 0xc0000c2620, 0xc0000f0d00)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9c00, 0xc0000c2620, 0xc0000f0d00)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000e81e0, 0x8aa8c0, 0xc000057e00)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 03:57:51 http: panic serving 192.168.56.1:50697: invalid character 'U' looking for beginning of value
+goroutine 14 [running]:
+net/http.(*conn).serve.func1(0xc0000e8140)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f1a0)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.LoginHandle(0x8a9c00, 0xc0000c2700, 0xc0000f1200)
+	/home/Project/WebAPI_layout/routes/login.go:30 +0x729
+net/http.HandlerFunc.ServeHTTP(0x849418, 0x8a9c00, 0xc0000c2700, 0xc0000f1200)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9c00, 0xc0000c2700, 0xc0000f1000)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9c00, 0xc0000c2700, 0xc0000f1000)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000e8140, 0x8aa8c0, 0xc000057f80)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 03:59:34 <nil>
+2021/06/18 03:59:39 <nil>
+2021/06/18 03:59:39 <nil>
+2021/06/18 04:01:19 <nil>
+2021/06/18 04:01:23 <nil>
+2021/06/18 04:01:23 <nil>
+2021/06/18 04:01:31 {"name":"Arisa","age":18,"email":"yeejiac@gmail.com","password":"123","vaidation":true}
+2021/06/18 04:01:31 {"name":"Arisa","age":18,"email":"yeejiac@gmail.com","password":"123","vaidation":true}
+2021/06/18 04:01:31 <nil>
+2021/06/18 04:01:31 <nil>
+2021/06/18 04:11:52 <nil>
+2021/06/18 04:11:53 <nil>
+2021/06/18 04:15:01 <nil>
+2021/06/18 04:15:14 Name=123&Age=11&Email=yeejiac%40gmail.com&Password=111&Validation=false
+2021/06/18 04:15:14 http: panic serving 192.168.56.1:63508: invalid character 'N' looking for beginning of value
+goroutine 8 [running]:
+net/http.(*conn).serve.func1(0xc0000e8000)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f060)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.User_Post(0x8a9be0, 0xc0000c2380, 0xc0000f0700)
+	/home/Project/WebAPI_layout/routes/user.go:61 +0x8d0
+net/http.HandlerFunc.ServeHTTP(0x849448, 0x8a9be0, 0xc0000c2380, 0xc0000f0700)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9be0, 0xc0000c2380, 0xc0000f0500)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9be0, 0xc0000c2380, 0xc0000f0500)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000e8000, 0x8aa8a0, 0xc0000578c0)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 04:15:14 Name=123&Age=11&Email=yeejiac%40gmail.com&Password=111&Validation=false
+2021/06/18 04:15:14 http: panic serving 192.168.56.1:58949: invalid character 'N' looking for beginning of value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1(0xc00007df40)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f0c0)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.User_Post(0x8a9be0, 0xc0000c2460, 0xc0000f0900)
+	/home/Project/WebAPI_layout/routes/user.go:61 +0x8d0
+net/http.HandlerFunc.ServeHTTP(0x849448, 0x8a9be0, 0xc0000c2460, 0xc0000f0900)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9be0, 0xc0000c2460, 0xc0000f0100)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9be0, 0xc0000c2460, 0xc0000f0100)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc00007df40, 0x8aa8a0, 0xc000057980)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
+2021/06/18 04:15:14 Name=123&Age=11&Email=yeejiac%40gmail.com&Password=111&Validation=false
+2021/06/18 04:15:14 http: panic serving 192.168.56.1:53244: invalid character 'N' looking for beginning of value
+goroutine 13 [running]:
+net/http.(*conn).serve.func1(0xc0000e8140)
+	/usr/lib/golang/src/net/http/server.go:1801 +0x147
+panic(0x7c5a40, 0xc00000f120)
+	/usr/lib/golang/src/runtime/panic.go:975 +0x47a
+github.com/yeejiac/WebAPI_layout/routes.User_Post(0x8a9be0, 0xc0000c2540, 0xc0000f0c00)
+	/home/Project/WebAPI_layout/routes/user.go:61 +0x8d0
+net/http.HandlerFunc.ServeHTTP(0x849448, 0x8a9be0, 0xc0000c2540, 0xc0000f0c00)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000ce000, 0x8a9be0, 0xc0000c2540, 0xc0000f0a00)
+	/root/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc0000c21c0, 0x8a9be0, 0xc0000c2540, 0xc0000f0a00)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000e8140, 0x8aa8a0, 0xc000057d40)
+	/usr/lib/golang/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+	/usr/lib/golang/src/net/http/server.go:2969 +0x36c
