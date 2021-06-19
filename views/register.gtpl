@@ -30,6 +30,7 @@
                       "Password":$('#Password').val(), Validation:false}),
                 success: function(data){
                     console.log('AJAX SUCCESS, data : '+data); 
+                    window.location.href = "http://192.168.56.105:8080/index";
                 },
                 error: function(errMsg){ 
                     console.log('AJAX FAILED, message : '+errMsg);

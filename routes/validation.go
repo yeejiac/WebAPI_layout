@@ -33,4 +33,6 @@ func Account_Validation(w http.ResponseWriter, r *http.Request) {
 	key := t.Name
 	value := string(b)
 	internal.RedisSet(key, value, conn)
+
+	w.Write([]byte("register success, please relogin"))
 }

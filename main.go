@@ -27,7 +27,7 @@ func main() {
 	r.HandleFunc("/login", routes.LoginHandle).Methods("GET")
 	r.HandleFunc("/login", routes.LoginHandle).Methods("POST")
 	r.HandleFunc("/register", routes.ShowRegisterPage).Methods("GET")
-	r.HandleFunc("/validation", routes.Account_Validation).Methods("POST") //確認帳戶已註冊
+	r.HandleFunc("/validation", routes.Account_Validation).Methods("GET") //確認帳戶已註冊
 	r.HandleFunc("/api/user", routes.User_Get).Methods("GET")
 	r.HandleFunc("/api/user", routes.User_Post).Methods("POST")
 	r.HandleFunc("/api/user", routes.User_Update).Methods("PUT")
