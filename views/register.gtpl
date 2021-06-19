@@ -26,8 +26,8 @@
             $.ajax({
                 url : "http://192.168.56.105:8080/api/user",
                 type: "POST",
-                data : { "Name": "Yeejiac", "Age":  12, Email: "yeejiac@gmail.com", 
-                      Password:"123", Validation:false},
+                data : JSON.stringify({ "Name": $('#Name').val(), "Age":  parseInt($('#Age').val()), "Email": $('#Email').val(), 
+                      "Password":$('#Password').val(), Validation:false}),
                 success: function(data){
                     console.log('AJAX SUCCESS, data : '+data); 
                 },
