@@ -18,6 +18,7 @@
   <input type="text" id="Email" name="Email"><br><br>
   <input type="submit" id="submit-btn" value="Submit">
 </form>
+<label for="Status" id="Status"></label>
 </body>
 <script>
     $(document).ready(function(){
@@ -29,8 +30,11 @@
                 data : JSON.stringify({ "Name": $('#Name').val(), "Age":  parseInt($('#Age').val()), "Email": $('#Email').val(), 
                       "Password":$('#Password').val(), Validation:false}),
                 success: function(data){
-                    console.log('AJAX SUCCESS, data : '+data); 
-                    window.location.href = "http://192.168.56.105:8080/index";
+                    console.log('AJAX SUCCESS, data : '+ data.status); 
+                    if (data.status == 'Failed')
+                        $("#Status").text('Failed');
+                    else
+                        window.location.href = "http://192.168.56.105:8080/index";
                 },
                 error: function(errMsg){ 
                     console.log('AJAX FAILED, message : '+errMsg);

@@ -78,25 +78,25 @@ func User_Post(w http.ResponseWriter, r *http.Request) {
 		w.Write(b)
 		return
 	}
-
+	var status models.Status
 	if internal.RedisCheckKey(t.Name, conn) {
-		var status models.Status
-		status.Status = "Already Exist"
-		b, err := json.Marshal(status)
-		if err != nil {
-			log.Println(err)
-			return
-		}
-		w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-		w.WriteHeader(http.StatusOK)
-		w.Write(b)
+		fmt.Println("Already Exist")
+		status.Status = "Failed"
 	} else {
-
+		go internal.SendRegisterMail(t)
+		status.Status = "Success"
 		key := t.Name
 		value := string(body)
 		internal.RedisSet(key, value, conn)
-		go internal.SendRegisterMail(t)
 	}
+	b, err := json.Marshal(status)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	w.Write(b)
 }
 
 func User_Delete(w http.ResponseWriter, r *http.Request) {

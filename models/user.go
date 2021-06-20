@@ -9,5 +9,5 @@ type UserInfo struct {
 }
 
 type Status struct {
-	Status string `json:"stauts"`
+	Status string `json:"status"`
 }
