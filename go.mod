@@ -7,6 +7,7 @@ require (
 	github.com/gomodule/redigo v1.8.4
 	github.com/google/uuid v1.2.0
 	github.com/gorilla/mux v1.8.0
+	github.com/gorilla/sessions v1.2.1
 	gopkg.in/ini.v1 v1.62.0
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 )

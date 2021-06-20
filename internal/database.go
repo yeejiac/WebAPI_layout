@@ -2,7 +2,6 @@ package internal
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/gomodule/redigo/redis"
 )
@@ -25,6 +24,10 @@ func RedisSet(key string, value string, rc redis.Conn) {
 	rc.Do("SET", key, value)
 }
 
+func RedisSetTimeout(key string, value string, timeout int, rc redis.Conn) {
+	rc.Do("SETEX", key, timeout, value)
+}
+
 func RedisCheckKey(key string, rc redis.Conn) bool {
 	res, err := redis.Bool(rc.Do("EXISTS", key))
 	if err != nil {
@@ -45,7 +48,6 @@ func RedisGet(key string, rc redis.Conn) string {
 	s, err := redis.String(rc.Do("GET", key))
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
 		return ""
 	}
 	return s

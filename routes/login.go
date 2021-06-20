@@ -1,38 +1,85 @@
 package routes
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"strings"
 	"text/template"
-	"time"
 
-	"github.com/google/uuid"
 	"github.com/yeejiac/WebAPI_layout/internal"
+	"github.com/yeejiac/WebAPI_layout/models"
 )
 
 func LoginHandle(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("method:", r.Method) //取得請求的方法
+	fmt.Println("Login method:", r.Method) //取得請求的方法
 	r.ParseForm()
 	if r.Method == "GET" {
 		t, _ := template.ParseFiles("./views/login.gtpl")
 		log.Println(t.Execute(w, nil))
 	} else {
+		// fmt.Println("login handle")
+		// body, err := ioutil.ReadAll(r.Body)
+		// if err != nil {
+		// 	// panic(err)
+		// 	fmt.Println("parse body error")
+		// 	return
+		// }
+		// fmt.Println(string(body))
+		// var t models.Login
+		// err = json.Unmarshal(body, &t)
+		// if err != nil {
+		// 	// panic(err)
+		// 	fmt.Println("decode body error")
+		// 	return
+		// }
+		// usr := t.Username
+		// password := t.Password
+		// fmt.Println(usr)
+		// fmt.Println(password)
 		usr := strings.Join(r.Form["Username"], " ")
-		if internal.RedisCheckKey(usr, conn) {
-			log.Println("user exist")
-		}
-		if usr == "123" {
-			sessionToken := uuid.New().String()
-			http.SetCookie(w, &http.Cookie{
-				Name:    "session_token",
-				Value:   sessionToken,
-				Expires: time.Now().Add(120 * time.Second),
-			})
+		password := strings.Join(r.Form["Password"], " ")
+		if LoginVerification(usr, password) { // login request pass
+			session, err := store.Get(r, "session_token")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			session.Options.MaxAge = 600
+			session.Values["auth"] = true
+			err = session.Save(r, w)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			http.Redirect(w, r, "/index", http.StatusSeeOther)
+			fmt.Println("success")
 		} else {
-			w.WriteHeader(http.StatusUnauthorized)
+			fmt.Println("Login failed")
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
 	}
+}
+
+func LoginVerification(username string, password string) bool {
+	res := internal.RedisGet(username, conn)
+	if res == "" {
+		return false
+	}
+	fmt.Println(res)
+	data := []byte(res)
+	var t models.UserInfo
+	err := json.Unmarshal(data, &t)
+	if err != nil {
+		panic(err)
+	}
+
+	if t.Password == password {
+		fmt.Println(t.Name + " Login success")
+		return true
+	}
+	fmt.Println(t.Name + " Login failed")
+	return false
 }

@@ -2,9 +2,11 @@ package routes
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/mail"
 
 	"github.com/gomodule/redigo/redis"
 	"github.com/yeejiac/WebAPI_layout/internal"
@@ -17,41 +19,12 @@ func SetConnectionObject(rc redis.Conn) {
 	conn = rc
 }
 
-// func RedisConnection() redis.Conn {
-// 	// const IPPort = "172.28.0.2:6379"
-// 	const IPPort = "127.0.0.1:6379"
-// 	err := *new(error)
-// 	rc, err := redis.Dial("tcp", IPPort)
-// 	if err != nil {
-// 		fmt.Println("db conn error")
-// 		panic(err)
-// 	}
-// 	conn = rc
-// 	fmt.Println("db conn success")
-// 	return rc
-// }
-
-func HomePage(w http.ResponseWriter, r *http.Request) {
-	u := &models.UserInfo{
-		Name: "syhlion",
-		Age:  18,
-	}
-	b, err := json.Marshal(u)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	w.Write(b)
-}
-
 func FindAll() {
 	log.Println("FindAll not implemented !")
 }
 
 // Find a movie by its id
-func Register_Get(w http.ResponseWriter, r *http.Request) {
+func User_Get(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
@@ -77,21 +50,23 @@ func Register_Get(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func Register_Post(w http.ResponseWriter, r *http.Request) {
+func User_Post(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
+		fmt.Println("parse body error")
 		panic(err)
 	}
-	log.Println(string(body))
+	fmt.Println(string(body))
 	var t models.UserInfo
 	err = json.Unmarshal(body, &t)
 	if err != nil {
-		panic(err)
+		fmt.Println("decode body error")
+		return
 	}
 
-	if internal.RedisCheckKey(t.Name, conn) {
+	if !CheckUserDataApply(t) {
 		var status models.Status
-		status.Status = "Already Exist"
+		status.Status = "email wrong"
 		b, err := json.Marshal(status)
 		if err != nil {
 			log.Println(err)
@@ -101,14 +76,30 @@ func Register_Post(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 		w.WriteHeader(http.StatusOK)
 		w.Write(b)
+		return
+	}
+	var status models.Status
+	if internal.RedisCheckKey(t.Name, conn) {
+		fmt.Println("Already Exist")
+		status.Status = "Failed"
 	} else {
+		go internal.SendRegisterMail(t)
+		status.Status = "Success"
 		key := t.Name
 		value := string(body)
 		internal.RedisSet(key, value, conn)
 	}
+	b, err := json.Marshal(status)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	w.Write(b)
 }
 
-func Register_Delete(w http.ResponseWriter, r *http.Request) {
+func User_Delete(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
@@ -123,7 +114,7 @@ func Register_Delete(w http.ResponseWriter, r *http.Request) {
 	internal.RedisDelete(key, conn)
 }
 
-func Register_Update(w http.ResponseWriter, r *http.Request) {
+func User_Update(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
@@ -142,6 +133,11 @@ func Register_Update(w http.ResponseWriter, r *http.Request) {
 	} else {
 		return
 	}
+}
+
+func CheckUserDataApply(userinfo models.UserInfo) bool {
+	_, err := mail.ParseAddress(userinfo.Email)
+	return err == nil
 }
 
 // // Insert a movie into database

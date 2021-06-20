@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/yeejiac/WebAPI_layout/internal"
@@ -10,18 +11,27 @@ import (
 )
 
 func main() {
+	f, err := os.OpenFile("./log/testlogfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	defer f.Close()
+	log.SetOutput(f)
+
 	rc := internal.RedisConnection()
 	defer rc.Close()
 	routes.SetConnectionObject(rc)
 
 	r := mux.NewRouter()
-	r.HandleFunc("/index", routes.ShowIndexPage).Methods("GET")
+	r.HandleFunc("/index", routes.Home).Methods("GET")
 	r.HandleFunc("/login", routes.LoginHandle).Methods("GET")
 	r.HandleFunc("/login", routes.LoginHandle).Methods("POST")
-	r.HandleFunc("/api/register", routes.Register_Get).Methods("GET")
-	r.HandleFunc("/api/register", routes.Register_Post).Methods("POST")
-	r.HandleFunc("/api/register", routes.Register_Update).Methods("PUT")
-	r.HandleFunc("/api/register", routes.Register_Delete).Methods("DELETE")
+	r.HandleFunc("/register", routes.ShowRegisterPage).Methods("GET")
+	r.HandleFunc("/validation", routes.Account_Validation).Methods("GET") //確認帳戶已註冊
+	r.HandleFunc("/api/user", routes.User_Get).Methods("GET")
+	r.HandleFunc("/api/user", routes.User_Post).Methods("POST")
+	r.HandleFunc("/api/user", routes.User_Update).Methods("PUT")
+	r.HandleFunc("/api/user", routes.User_Delete).Methods("DELETE")
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal(err)
 	}
